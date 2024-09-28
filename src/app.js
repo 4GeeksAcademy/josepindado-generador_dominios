@@ -1,38 +1,33 @@
 import "bootstrap";
 import "./style.css";
 
+import "./assets/img/rigo-baby.jpg";
+import "./assets/img/4geeks.ico";
+
 window.onload = function() {
-  document.querySelector("#pronouns").innerHTML = printAll(pronouns);
-  document.querySelector("#adjs").innerHTML = printAll(adjs);
-  document.querySelector("#nouns").innerHTML = printAll(nouns);
-  document.querySelector("#extensions").innerHTML = printAll(extensions);
-  document.querySelector("#domains").innerHTML = generateDomain();
-};
+  let pronoun = ["the", "our"];
+  let adj = ["great", "big"];
+  let noun = ["jogger", "racoon"];
+  let extensions = [".com", ".es", ".net"];
 
-let pronouns = ["El", "Tu", "Su", "Mi"];
-let adjs = ["gran", "bueno", "malo", "feo"];
-let nouns = ["perro", "gato", "leon", "gorila"];
-let extensions = [".com", ".es", ".org", ".dev"];
-let spacing = "<br>";
+  let domainNames = [];
 
-const generateDomain = () => {
-  let domain = "";
-  pronouns.forEach(pronoun => {
-    adjs.forEach(adj => {
-      nouns.forEach(noun => {
-        extensions.forEach(extension => {
-          domain += pronoun + adj + noun + extension + spacing;
-        });
-      });
-    });
+  for (let a = 0; a < pronoun.length; a++) {
+    for (let b = 0; b < adj.length; b++)
+      for (let c = 0; c < noun.length; c++)
+        for (let d = 0; d < extensions.length; d++)
+          domainNames.push(
+            "www." + pronoun[a] + adj[b] + noun[c] + extensions[d]
+          );
+  }
+
+  document.body.innerHTML = "<ol></ol>";
+
+  let ol = document.querySelector("ol");
+
+  domainNames.forEach(function(domain) {
+    let li = document.createElement("li");
+    li.textContent = domain;
+    ol.appendChild(li);
   });
-
-  return domain;
 };
-function printAll(pronouns) {
-  let result = "";
-  pronouns.forEach(element => {
-    result += element + "<br>";
-  });
-  return result;
-}
